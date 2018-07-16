@@ -116,6 +116,7 @@ $json_data = array(
 			);
 
 echo json_encode($json_data);
+
 // send data as json format
 //onclick="getInventarioid('.$row['ID_INVENTARIO'].')"
 //<a href="delete.php?action=delete&id='.$row['ID_INVENTARIO'].'"  data-toggle="tooltip" title="Eliminar" class="btn btn-sm btn-danger"> <i class="menu-icon icon-trash"></i> </a>

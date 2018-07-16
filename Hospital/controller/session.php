@@ -7,7 +7,7 @@ session_start();// Iniciando Sesion
 // Guardando la sesion
 $user_check=$_SESSION['login_user_sys'];
 // SQL Query para completar la informacion del usuario
-$ses_sql=mysqli_query($con, "select user from login where user='$user_check'");
+$ses_sql=mysqli_query($con, "SELECT user from login where user='$user_check'");
 $row = mysqli_fetch_assoc($ses_sql);
 $login_session =$row['user'];
 if(!isset($login_session)){
@@ -27,7 +27,7 @@ header('Location: index.php'); // Redirecciona a la pagina de inicio
 // }
 //Expire the session if user is inactive for 30
 //minutes or more.
-$expireAfter = 10;
+$expireAfter = 20;
 
 //Check to see if our "last action" session
 //variable has been set.
@@ -44,6 +44,7 @@ if(isset($_SESSION['last_action'])){
         //mata la session.
         session_unset();
         session_destroy();
+        header("Location: index.php");
     }
 }
 // asigna la marca de tiempo actual como la última actividad del usuario

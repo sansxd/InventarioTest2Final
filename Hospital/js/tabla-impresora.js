@@ -1,5 +1,5 @@
-﻿$(document).ready(function() {
-  var dataTable = $('#lookup').DataTable( {
+$(document).ready(function() {
+  var dataTable = $('#impresora_data').DataTable( {
     "language":	{
       "sProcessing":     "Procesando...",
       "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -24,6 +24,7 @@
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
       }
     },
+
     "paging": true,
     "lengthMenu": [ [10, 25, 50, 100, 500], [10, 25, 50, 100, 500] ],
     "pagingType": "full_numbers",
@@ -33,12 +34,12 @@
     "processing": true,
     "serverSide": true,
     "ajax":{
-      url :"php/ajax-grid-data.php", // json datasource
+      url :"php/impresora-data.php", // json datasource
       type: "post",  // method  , by default get
       error: function(){  // error handling
-        $(".lookup-error").html("");
-        $("#lookup").append('<tbody class="employee-grid-error"><tr><th colspan="3">No se escuentran datos en el servidor</th></tr></tbody>');
-        $("#lookup_processing").css("display","none");
+        $(".impresora_data-error").html("");
+        $("#impresora_data").append('<tbody class="employee-grid-error"><tr><th colspan="3">No se escuentran datos en el servidor</th></tr></tbody>');
+        $("#impresora_data_processing").css("display","none");
       }
     }
 
@@ -57,12 +58,17 @@
       extend: 'excelHtml5',
       title: 'Data Inventario',
       text: 'Exportar a Excel',
-
+      exportOptions: {
+        columns: [0, 1,2,3,4,5,6,7]
+      }
 
     },
     {
          extend: 'print',
-         text: 'Imprimir Fila'
+         text: 'Imprimir Fila',
+         exportOptions: {
+           columns: [0, 1,2,3,4,5,6,7]
+         }
      }
   ]
   } );

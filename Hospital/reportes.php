@@ -9,7 +9,7 @@ require_once 'controller/session.php';
 <head>
   <meta charset="utf-8">
   <title>Reporte</title>
-  <?php include("head.php");?>
+  <?php include("vista/head.php");?>
 
 </head>
 <body>
@@ -97,11 +97,9 @@ require_once 'controller/session.php';
   </div>
 
   <!--/.wrapper--><br />
-      <div class="footer span-12">
-        <div class="container">
-          <b class="copyright"><a href="index.php"> Inventario Web</a> &copy; <?php echo date("Y")?> DataTables Bootstrap </b>
-        </div>
-      </div>
+  <?php
+  include("vista/footer.php");
+   ?>
 
 
       <script type="text/javascript" charset="utf-8" src="js/data-borrado.js"></script>

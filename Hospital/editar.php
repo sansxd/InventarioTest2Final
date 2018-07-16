@@ -5,18 +5,14 @@ require_once 'controller/session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
   <head>
-    <?php include("head.php");?>
+    <?php include("vista/head.php");?>
   </head>
   <body>
     <div class="navbar navbar-default">
       <div class="navbar-inner">
         <div class="container">
           <a class="navbar-brand" href="index.php">Inventario Web</a>
-
-
-
         </div>
       </div>
       <!-- /navbar-inner -->
@@ -29,8 +25,6 @@ require_once 'controller/session.php';
             <?php
             // esta parte del codigo sirve para redireecionar a traves de la id hacia administracion.
             // $id = intval($_GET['id']);
-
-
             if(isset($_POST['edit']) && $_POST['edit'] == 'Editar'){
 
               $id_get = $_POST['ID_INVENTARIO']; //GET THE ID VIA URL
@@ -41,6 +35,8 @@ require_once 'controller/session.php';
               }else{
                 $row = mysqli_fetch_assoc($sql);
               }
+            }else {
+              header("Location: administracion.php");
             }
 
             ?>
@@ -65,34 +61,55 @@ require_once 'controller/session.php';
                     <input type="text" name="usuario" id="usuario" value="<?php echo $row['USUARIO']; ?>" placeholder="" class="form-control " maxlength="25">
                   </div>
                 </div>
+                <div class="control-group ">
+                  <label class="control-label" for="ip">Ip :</label>
+                  <div class="controls">
+                    <input type="text" name="ip" id="ip" value="<?php echo $row['IP']; ?>" placeholder="" class="form-control "  maxlength="20" >
+                  </div>
+                </div>
+                <div class="control-group ">
+                  <label class="control-label" for="nombre">Nombre :</label>
+                  <div class="controls">
+                    <input type="text" name="nombre" id="nombre" value="<?php echo $row['NOMBRE']; ?>" placeholder="" class="form-control " maxlength="45" >
+                  </div>
+                </div>
+                <div class="control-group ">
+                  <label class="control-label" for="telefono">Teléfono :</label>
+                  <div class="controls">
+                    <input type="number" name="telefono" id="telefono" value="<?php echo $row['TELEFONO']; ?>" placeholder="" class="form-control " maxlength="20" >
+                  </div>
+                </div>
 
                 <div class="control-group ">
                   <label class="control-label" for="marca">Marca :</label>
                   <div class="controls">
-                    <input type="text" name="marca" id="marca" value="<?php echo $row['MARCA']; ?>" placeholder="" class="form-control " maxlength="15" >
+                    <input type="text" name="marca" id="marca" value="<?php echo $row['MARCA']; ?>" placeholder="" class="form-control " maxlength="50" >
                   </div>
                 </div>
 
                 <div class="control-group ">
                   <label class="control-label" for="serial">Serial</label>
                   <div class="controls">
-                    <input name="serial" id="serial" value="<?php echo $row['SERIAL_PC']; ?>" class="form-control " type="text"  maxlength="35"  />
+                    <input name="serial" id="serial" value="<?php echo $row['SERIAL_PC']; ?>" class="form-control " type="text"  maxlength="65"  />
                   </div>
                 </div>
 
                 <div class="control-group ">
                   <label class="control-label" for="nro_interno">Nro Intero :</label>
                   <div class="controls">
-                    <input name="nro_interno" id="nro_interno" value="<?php echo $row['N_INTERNO_INVENTARIO']; ?>" class="form-control " type="text" maxlength="15"  />
+                    <input name="nro_interno" id="nro_interno" value="<?php echo $row['N_INTERNO_INVENTARIO']; ?>" class="form-control " type="text" maxlength="30"  />
                   </div>
                 </div>
 
                 <div class="control-group ">
                   <label class="control-label" for="monitor">Monitor :</label>
                   <div class="controls">
-                    <input name="monitor" id="monitor" value="<?php echo $row['MONITOR']; ?>" class=" form-control " type="text"   maxlength="13"   />
+                    <input name="monitor" id="monitor" value="<?php echo $row['MONITOR']; ?>" class=" form-control " type="text"   maxlength="35"   />
                   </div>
                 </div>
+              </div>
+              <!-- separacion horizontal -->
+              <div class="col-sm-6">
 
                 <div class="control-group ">
                   <label class="control-label" for="mouse">Mouse :</label>
@@ -112,39 +129,22 @@ require_once 'controller/session.php';
                     <input type="text" name="adaptador" id="adaptador" value="<?php echo $row['ADAPTADOR']; ?>" placeholder="" class="form-control " maxlength="25">
                   </div>
                 </div>
-              </div>
-              <!-- separacion horizontal -->
-              <div class="col-sm-6">
+
                 <div class="control-group ">
                   <label class="control-label" for="rj45">RJ45 :</label>
                   <div class="controls">
                     <input type="text" name="rj45" id="rj45" value="<?php echo $row['RJ45']; ?>" placeholder="" class="form-control "  maxlength="18"  >
                   </div>
                 </div>
-                <div class="control-group ">
-                  <label class="control-label" for="nombre">Nombre :</label>
-                  <div class="controls">
-                    <input type="text" name="nombre" id="nombre" value="<?php echo $row['NOMBRE']; ?>" placeholder="" class="form-control " maxlength="45" >
-                  </div>
-                </div>
-                <div class="control-group ">
-                  <label class="control-label" for="telefono">Teléfono :</label>
-                  <div class="controls">
-                    <input type="number" name="telefono" id="telefono" value="<?php echo $row['TELEFONO']; ?>" placeholder="" class="form-control " maxlength="20" >
-                  </div>
-                </div>
-                <div class="control-group ">
-                  <label class="control-label" for="ip">Ip :</label>
-                  <div class="controls">
-                    <input type="text" name="ip" id="ip" value="<?php echo $row['IP']; ?>" placeholder="" class="form-control "  maxlength="20" >
-                  </div>
-                </div>
+
+
                 <div class="control-group ">
                   <label class="control-label" for="mac">Mac :</label>
                   <div class="controls">
                     <input type="text" name="mac" id="mac" value="<?php echo $row['MAC']; ?>" placeholder="" class="form-control " maxlength="20">
                   </div>
                 </div>
+
                 <div class="control-group ">
                   <label class="control-label" for="antivirus">Antivirus :</label>
                   <div class="controls">
@@ -190,15 +190,8 @@ require_once 'controller/session.php';
     <!--/.container-->
 
     <!--/.wrapper--><br />
-    <div class="footer span-12">
-      <div class="container">
-        <b class="copyright"><a href="index.php"> Inventario Web</a> &copy; <?php echo date("Y")?> DataTables Bootstrap </b>
-      </div>
-    </div>
-
-    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
-
-
-
+    <?php
+    include("vista/footer.php");
+     ?>
   </body>
+  </html>

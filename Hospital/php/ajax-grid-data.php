@@ -41,19 +41,22 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 
 if( !empty($requestData['search']['value']) ) {
 	// if there is a search parameter
-	$sql = "SELECT *";
+	$sql = "SELECT ID_INVENTARIO, EDIFICIO,USUARIO, MARCA, SERIAL_PC, N_INTERNO_INVENTARIO, MONITOR,MOUSE,TECLADO,ADAPTADOR,RJ45,NOMBRE,TELEFONO,IP,MAC,ANTIVIRUS,IMPRESORA,TINTA,TIPODETINTA ";
 	$sql.=" FROM inventario";
-	$sql.=" WHERE IP LIKE '".$requestData['search']['value']."%' ";    // $requestData['search']['value'] contains search parameter
-	$sql.=" OR USUARIO LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR EDIFICIO LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR TELEFONO LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR NOMBRE LIKE '".$requestData['search']['value']."%' ";
-    $sql.=" OR MONITOR LIKE '".$requestData['search']['value']."%' ";
-		$sql.=" OR TECLADO LIKE '".$requestData['search']['value']."%' ";
-		$sql.=" OR MOUSE LIKE '".$requestData['search']['value']."%' ";
-		$sql.=" OR SERIAL_PC LIKE '".$requestData['search']['value']."%' ";
-		$sql.=" OR MARCA LIKE '".$requestData['search']['value']."%' ";
-		$sql.=" OR MONITOR LIKE '".$requestData['search']['value']."%' ";
+	$sql.=" WHERE ";
+	$sql.=" ( IP LIKE '%".$requestData['search']['value']."%' ";    // $requestData['search']['value'] contains search parameter
+	$sql.=" OR USUARIO LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR EDIFICIO LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR TELEFONO LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR NOMBRE LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR MONITOR LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR TECLADO LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR MOUSE LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR SERIAL_PC LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR MARCA LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR MONITOR LIKE '%".$requestData['search']['value']."%' ";
+	$sql.=" OR IMPRESORA LIKE '%".$requestData['search']['value']."%' )";
+
 
 
 	$query=mysqli_query($conn, $sql) or die("ajax-grid-data.php: get PO");
@@ -64,18 +67,18 @@ if( !empty($requestData['search']['value']) ) {
 
 } else {
 
-	$sql = "SELECT ID_INVENTARIO, EDIFICIO,USUARIO, MARCA, SERIAL_PC, N_INTERNO_INVENTARIO, MONITOR,MOUSE,TECLADO,ADAPTADOR,RJ45,NOMBRE,TELEFONO,IP,MAC,ANTIVIRUS,IMPRESORA,TINTA,TIPODETINTA ";
+	$sql = "SELECT *";
 	$sql.=" FROM inventario";
 	$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
-	$query=mysqli_query($conn, $sql) or die("ajax-grid-data.php: get PO");
+	$query=mysqli_query($conn, $sql) or die('Connect Error: ' . mysqli_connect_error());
 
 }
-
+$start=$_REQUEST['start']+1;
 $data = array();
-$counter = 1;
+// $counter = 1;
 while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData=array();
-	$nestedData[] = "<td>" . $counter . "</td>";
+	$nestedData[] = "<td>" . $start . "</td>";
 	// $nestedData[] = $row["ID_INVENTARIO"];  //fue sacado para el index
 	$nestedData[] = $row["EDIFICIO"];
 	$nestedData[] = $row["USUARIO"];
@@ -113,7 +116,8 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	</td>';
 
 	$data[] = $nestedData;
- $counter++; //increment counter by 1 on every pass
+ // $counter++; //increment counter by 1 on every pass
+ $start++;
 
 }
 

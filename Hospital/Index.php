@@ -11,9 +11,10 @@ if(isset($_SESSION['login_user_sys'])){
 <html>
 <head>
   <title>Login</title>
-  <?php include("head.php");?>
+  <?php include("vista/head.php");?>
 
 <script>
+// funcion para saber si la tecla Mayus esta activa
 function capLock(e){
   var kc = e.keyCode ? e.keyCode : e.which;
   var sk = e.shiftKey ? e.shiftKey : kc === 16;
@@ -25,6 +26,7 @@ function capLock(e){
 </head>
 
 <body>
+  
 
   <div class="container">  <!--Div principal va a contener a todos los demas en una clase contenedora-->
     <h1>Login Inventario</h1>
@@ -49,8 +51,9 @@ function capLock(e){
       <div class="clear"> </div>
 
       <span class="col-sm-10"><?php echo $error; ?></span>
-      <div class="alert alert-warning col-sm-10" id="divMayus" style="visibility:hidden">Bloq Mayus activo</div>
+      <div class="alert alert-warning col-sm-10" id="divMayus" style="visibility:hidden">Bloq Mayus activa</div>
   </form>
 </div>
+
 </body>
 </html>

@@ -5,9 +5,8 @@ require_once 'controller/session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
   <head>
-    <?php include("head.php");?>
+    <?php include("vista/head.php");?>
   </head>
   <body>
     <div class="navbar navbar-default">
@@ -46,27 +45,15 @@ require_once 'controller/session.php';
               $tipodetinta	= trim(mysqli_real_escape_string($conn,(strip_tags($_POST['tipodetinta'], ENT_QUOTES))));
 
 
-              // $variables=array($edificio,$marca,$serial,$nro_interno,$monitor,$mouse,$teclado,$adaptador,$rj45,$nombre,$telefono,$ip,$mac,$antivirus,$impresora,$tinta,$tipodetinta);
-              // foreach ($variables as $variable =>$valor){
-              //   if ($valor == "") {
-              //     $resultado = str_replace("","No registrado",$valor);
-              //     echo "La cadena resultante es: " . $resultado;
-              //
-              //   }
-              // }
-              // if (empty($tipodetinta)) {
-              //
-              // } else {
-              //   $tipodetinta = test_input($tipodetinta]);
-              // }
+            if (empty($nombre)) {
+              echo '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>El campo <strong>NOMBRE</strong> no puede quedar vacio</div>';
+
+            }else {
+
+              $edificio = $edificio ?: 'SIN EDIFICIO'; //si el campo esta vacio se ingresa esto
+              $serial = $serial ?: 'SIN SERIAL';
 
 
-
-              // $verificar_ip = mysqli_query($conn,"SELECT * FROM inventario WHERE IP='$ip'");
-              // if (mysqli_num_rows($verificar_ip) >0) {
-              //   echo '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>El IP ya se encuentra registrado!</strong></div>';
-              //   //si no existe la misma IP
-              // }else {
 
                 //consulta para insertar datos
                 $insert = mysqli_query($conn, "INSERT INTO inventario(ID_INVENTARIO, EDIFICIO,USUARIO, MARCA, SERIAL_PC, N_INTERNO_INVENTARIO,MONITOR,MOUSE,TECLADO,ADAPTADOR,RJ45,NOMBRE,TELEFONO,IP,MAC,ANTIVIRUS,IMPRESORA,TINTA,TIPODETINTA)
@@ -80,11 +67,10 @@ require_once 'controller/session.php';
                   echo "<script>window.setTimeout(function() { window.location = 'administracion.php' }, 2000)</script>";
                   // header("Location: administracion.html");
                 }
-              //}
+              }
             }
 
             ?>
-            <div id="resultado"></div>
             <div class="alert alert-info" >El campo obligatorio es <strong>NOMBRE.</strong></div>
 
             <blockquote>
@@ -104,35 +90,55 @@ require_once 'controller/session.php';
                   <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="form-control span8 tip" maxlength="25">
                 </div>
               </div>
-
+              <div class="control-group">
+                <label class="control-label" for="ip">Ip :</label>
+                <div class="controls">
+                  <input name="ip" id="ip" class=" form-control span8 tip" type="text" placeholder="Ip" maxlength="20" />
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="nombre">Nombre :</label>
+                <div class="controls">
+                  <input name="nombre" id="nombre" class=" form-control span8 tip" type="text" placeholder="Nombre" pattern=".{3,45}" title="Ingrese mas de 3 caracteres" maxlength="45" required/>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="telefono">Telefono :</label>
+                <div class="controls">
+                  <input name="telefono" id="telefono" class=" form-control span8 tip" type="number" placeholder="Telefono" maxlength="20" />
+                </div>
+              </div>
 
               <div class="control-group">
                 <label class="control-label" for="marca">Marca :</label>
                 <div class="controls">
-                  <input type="text" name="marca" id="marca" placeholder="Marca" class="form-control span8 tip" maxlength="15" >
+                  <input type="text" name="marca" id="marca" placeholder="Marca" class="form-control span8 tip" maxlength="50" >
                 </div>
               </div>
 
               <div class="control-group">
                 <label class="control-label" for="serial">Serial :</label>
                 <div class="controls">
-                  <input name="serial" id="serial" class="form-control span8 tip" type="text" placeholder="Serial" maxlength="35"  />
+                  <input name="serial" id="serial" class="form-control span8 tip" type="text" placeholder="Serial" maxlength="65"  />
                 </div>
               </div>
 
               <div class="control-group">
                 <label class="control-label" for="nro_interno">Nro Interno :</label>
                 <div class="controls">
-                  <input name="nro_interno" id="nro_interno" class=" form-control span8 tip" type="text" placeholder="Nro interno" maxlength="15" />
+                  <input name="nro_interno" id="nro_interno" class=" form-control span8 tip" type="text" placeholder="Nro interno" maxlength="30" />
                 </div>
               </div>
 
               <div class="control-group">
                 <label class="control-label" for="monitor">Monitor :</label>
                 <div class="controls">
-                  <input name="monitor" id="monitor" class=" form-control span8 tip" type="text" placeholder="Monitor" maxlength="13"  />
+                  <input name="monitor" id="monitor" class=" form-control span8 tip" type="text" placeholder="Monitor" maxlength="35"  />
                 </div>
               </div>
+            </div>
+              <!-- aqui lo volvemos horizontal -->
+                <div class="col-sm-6">
 
               <div class="control-group">
                 <label class="control-label" for="mouse">Mouse :</label>
@@ -154,9 +160,7 @@ require_once 'controller/session.php';
                   <input name="adaptador" id="adaptador" class=" form-control span8 tip" type="text" placeholder="Adaptador"  maxlength="25"/>
                 </div>
               </div>
-            </div>
-            <!-- aqui lo volvemos horizontal -->
-              <div class="col-sm-6">
+
               <div class="control-group">
                 <label class="control-label" for="rj45">RJ45 :</label>
                 <div class="controls">
@@ -165,24 +169,8 @@ require_once 'controller/session.php';
               </div>
 
 
-              <div class="control-group">
-                <label class="control-label" for="nombre">Nombre :</label>
-                <div class="controls">
-                  <input name="nombre" id="nombre" class=" form-control span8 tip" type="text" placeholder="Nombre" maxlength="45" required/>
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label" for="telefono">Telefono :</label>
-                <div class="controls">
-                  <input name="telefono" id="telefono" class=" form-control span8 tip" type="number" placeholder="Telefono" maxlength="20" />
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label" for="ip">Ip :</label>
-                <div class="controls">
-                  <input name="ip" id="ip" class=" form-control span8 tip" type="text" placeholder="Ip" maxlength="20" />
-                </div>
-              </div>
+
+
               <div class="control-group">
                 <label class="control-label" for="mac">Mac :</label>
                 <div class="controls">
@@ -218,8 +206,8 @@ require_once 'controller/session.php';
 
               <div class="control-group col-sm-6">
                 <div class="controls">
-                  <button type="submit" name="submit" id="submit"  class="btn btn-sm btn-primary" >Registrar</button>
-                  <a href="administracion.php" class="btn btn-sm btn-danger">Cancelar</a>
+                  <button type="submit" name="submit" id="submit"  class="btn btn-md btn-primary" >Registrar</button>
+                  <a href="administracion.php" class="btn btn-md btn-danger">Cancelar</a>
                 </div>
               </div>
             </form>
@@ -232,13 +220,10 @@ require_once 'controller/session.php';
     <!--/.container-->
 
     <!--/.wrapper--><br />
-    <div class="footer span-12">
-      <div class="container">
-        <b class="copyright"><a href="Index.php"> Inventario Web</a> &copy; <?php echo date("Y")?> DataTables Bootstrap </b>
-      </div>
-    </div>
-
-    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <?php
+    include("vista/footer.php");
+     ?>
 
 
   </body>
+  </html>

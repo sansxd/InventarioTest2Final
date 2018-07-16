@@ -1,6 +1,6 @@
 <?php
 	# conectarse la base de datos
-    $con=@mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $con=@mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if(!$con){
         die("imposible conectarse: ".mysqli_error($con));
     }
